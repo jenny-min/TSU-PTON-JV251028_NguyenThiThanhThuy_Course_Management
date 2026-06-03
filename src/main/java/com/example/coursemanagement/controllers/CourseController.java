@@ -47,7 +47,14 @@ public class CourseController {
 
     //Xóa
     @GetMapping("/delete/{id}")
-    public String deleteCourseById(@PathVariable Long id) {
+    public String confirmDelete(@PathVariable Long id, Model model) {
+        Course c = cs.getCourseById(id).orElseThrow(() -> new RuntimeException("Không tìm thấy khóa học"));
+        model.addAttribute("course", c);
+        return "FormConfirmDelete";
+    }
+
+    @PostMapping("/delete")
+    public String deleteCourse(@RequestParam Long id) {
         cs.deleteCourseById(id);
         return "redirect:/courses";
     }
@@ -56,7 +63,6 @@ public class CourseController {
     @GetMapping("/update/{id}")
     public String updateCourseById(@PathVariable Long id, Model model) {
         Optional<Course> courseOpt = cs.getCourseById(id);
-        System.out.println("course id: " + id);
         courseOpt.ifPresent(course -> model.addAttribute("updateCourse", course));
         return "FormUpdateCourse";
     }

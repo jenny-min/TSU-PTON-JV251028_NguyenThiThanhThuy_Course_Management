@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Xác nhận xóa</title>
+
+    <style>
+        body{
+            background:#f4f6f9;
+            font-family:Arial, sans-serif;
+        }
+
+        .container{
+            width:500px;
+            margin:100px auto;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,.1);
+            text-align:center;
+        }
+
+        h2{
+            color:#2563eb;
+            margin-bottom:20px;
+        }
+
+        p{
+            margin-bottom:20px;
+            font-size:18px;
+        }
+
+        .btn-group{
+            display:flex;
+            justify-content:center;
+            gap:15px;
+        }
+
+        .delete-btn{
+            background:#2563eb;
+            color:white;
+            border:none;
+            padding:10px 20px;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
+        .cancel-btn{
+            background:#6b7280;
+            color:white;
+            text-decoration:none;
+            padding:10px 20px;
+            border-radius:5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Xác nhận xóa</h2>
+        <p>
+            Bạn có chắc muốn xóa khóa học:
+            <b th:text="${course.courseName}"></b> ?
+        </p>
+        <form th:action="@{/courses/delete}" method="post">
+            <input type="hidden"
+                   name="id"
+                   th:value="${course.id}">
+            <div class="btn-group">
+                <button type="submit"
+                        class="delete-btn">
+                    Xóa
+                </button>
+                <a th:href="@{/courses}"
+                   class="cancel-btn">
+                    Hủy
+                </a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
