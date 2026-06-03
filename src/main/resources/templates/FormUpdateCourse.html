@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Cập nhật Khóa học</title>
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body{
+            background:#f4f6f9;
+            min-height:100vh;
+        }
+
+        /* Header */
+
+        header{
+            background:#1e3a8a;
+            color:white;
+            padding:20px;
+            text-align:center;
+        }
+
+        /* Form */
+
+        .container{
+            width:700px;
+            margin:40px auto;
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .container h2{
+            text-align:center;
+            margin-bottom:25px;
+            color:#333;
+        }
+
+        .form-group{
+            margin-bottom:20px;
+        }
+
+        label{
+            display:block;
+            margin-bottom:8px;
+            font-weight:bold;
+            color:#444;
+        }
+
+        input{
+            width:100%;
+            padding:12px;
+            border:1px solid #ccc;
+            border-radius:6px;
+            font-size:14px;
+        }
+
+        input:focus{
+            outline:none;
+            border-color:#2563eb;
+            box-shadow:0 0 5px rgba(37,99,235,0.3);
+        }
+
+        .error{
+            color:red;
+            font-size:13px;
+            margin-top:5px;
+        }
+
+        .button-group{
+            display:flex;
+            justify-content:center;
+            gap:15px;
+            margin-top:30px;
+        }
+
+        .save-btn{
+            background:#22c55e;
+            color:white;
+            border:none;
+            padding:12px 25px;
+            border-radius:6px;
+            cursor:pointer;
+            font-size:15px;
+        }
+
+        .save-btn:hover{
+            background:#16a34a;
+        }
+
+        .cancel-btn{
+            background:#ef4444;
+            color:white;
+            text-decoration:none;
+            padding:12px 25px;
+            border-radius:6px;
+            font-size:15px;
+        }
+
+        .cancel-btn:hover{
+            background:#dc2626;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <h1>COURSE MANAGEMENT SYSTEM</h1>
+</header>
+
+<div class="container">
+
+    <h2>Cập nhật Khóa Học</h2>
+
+    <form th:action="@{/courses/save}"
+          th:object="${updateCourse}"
+          method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <!-- Tên khóa học -->
+        <div class="form-group">
+            <label>Tên khóa học</label>
+
+            <input type="text"
+                   th:field="*{courseName}"
+                   placeholder="Nhập tên khóa học mới">
+
+            <div class="error"
+                 th:if="${#fields.hasErrors('courseName')}"
+                 th:errors="*{courseName}">
+            </div>
+        </div>
+
+        <!-- Giảng viên -->
+        <div class="form-group">
+            <label>Giảng viên</label>
+
+            <input type="text"
+                   th:field="*{instructor}"
+                   placeholder="Nhập tên giảng viên mới">
+
+            <div class="error"
+                 th:if="${#fields.hasErrors('instructor')}"
+                 th:errors="*{instructor}">
+            </div>
+        </div>
+
+        <!-- Thời lượng -->
+        <div class="form-group">
+            <label>Thời lượng (giờ)</label>
+
+            <input type="number"
+                   th:field="*{duration}"
+                   placeholder="Nhập số giờ học mới">
+
+            <div class="error"
+                 th:if="${#fields.hasErrors('duration')}"
+                 th:errors="*{duration}">
+            </div>
+        </div>
+
+        <!-- Ảnh đại diện -->
+        <div class="form-group">
+            <label>Ảnh đại diện (URL)</label>
+            <input type="text" th:field="*{thumbnail}" placeholder="Nhập URL ảnh mới">
+        </div>
+
+        <!-- Nút -->
+        <div class="button-group">
+            <button type="submit" class="save-btn">
+                Lưu
+            </button>
+
+            <a th:href="@{/courses}" class="cancel-btn">
+                Hủy
+            </a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

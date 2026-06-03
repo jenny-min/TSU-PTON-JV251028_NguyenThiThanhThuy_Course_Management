@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <title>Thêm khóa học</title>
@@ -119,7 +119,7 @@
 
     <h2>Thêm Khóa Học Mới</h2>
 
-    <form th:action="@{/courses/save}"
+    <form th:action="@{/courses}"
           th:object="${course}"
           method="post">
 

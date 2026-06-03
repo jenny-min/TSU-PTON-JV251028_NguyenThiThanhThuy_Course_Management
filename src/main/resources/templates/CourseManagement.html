@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <title>Course Management</title>
@@ -207,7 +207,7 @@
                 <td th:text="${course.duration}"></td>
 
                 <td>
-                    <a>
+                    <a th:href="'/courses/update/' + ${course.id}">
                         <button class="edit-btn">Sửa</button>
                     </a>
 

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,12 +20,16 @@ public class CourseService {
         return cr.findAll();
     }
 
-    public Course saveCourse(Course course) {
+    public Course addCourse(Course course) {
         Course newCourse = cr.save(course);
-        return cr.save(course);
+        return cr.save(newCourse);
     }
 
     public void deleteCourseById(Long id) {
         cr.deleteById(id);
+    }
+
+    public Optional<Course> getCourseById(Long id) {
+        return cr.findById(id);
     }
 }
