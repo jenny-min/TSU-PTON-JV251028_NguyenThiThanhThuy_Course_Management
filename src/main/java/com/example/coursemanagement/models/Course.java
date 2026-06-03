@@ -20,7 +20,7 @@ public class Course {
     private Long id;
 
     @NotBlank(message = "Tên khóa học không được để trống")
-    @Size(min = 5, max = 100, message = "Tên khóa học phải từ 5 đến 100 ký tự")
+    @Size(min = 5, max = 100)
     private String courseName;
 
     @NotBlank(message = "Tên giảng viên không được để trống")
