@@ -7,22 +7,71 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class CourseService {
     private final CourseRepository cr;
 
-    public List<Course> getAllCourse() {
-        return cr.findAll();
+    private static final String UPLOAD_DIR = "uploads";
+
+    public Page<Course> getAllCourse(int page) {
+        Pageable pageable = PageRequest.of(page, 2);
+        return cr.findAll(pageable);
     }
 
-    public Course addCourse(Course course) {
-        Course newCourse = cr.save(course);
-        return cr.save(newCourse);
+    public Course addCourse(Course course, MultipartFile file) {
+        try {
+            if (file != null && !file.isEmpty()) {
+
+                String fileName = file.getOriginalFilename();
+
+                // Validate
+                String lowerCaseName = fileName.toLowerCase();
+
+                if (!lowerCaseName.endsWith(".jpg")
+                        && !lowerCaseName.endsWith(".jpeg")
+                        && !lowerCaseName.endsWith(".png")) {
+
+                    throw new RuntimeException("Chỉ cho phép file jpg, jpeg, png");
+                }
+
+                // Tạo thư mục uploads nếu chưa tồn tại
+                Path uploadPath = Paths.get(UPLOAD_DIR);
+
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                // Tạo tên file mới
+                String extension = fileName.substring(fileName.lastIndexOf("."));
+
+                String newFileName = UUID.randomUUID() + extension;
+
+                // Lưu file
+                Files.copy(
+                        file.getInputStream(), uploadPath.resolve(newFileName),
+                        StandardCopyOption.REPLACE_EXISTING
+                );
+
+                // Chỉ lưu tên file
+                course.setThumbnail(newFileName);
+            }
+
+            return cr.save(course);
+
+        } catch (IOException e) {
+            throw new RuntimeException("Lỗi upload file: " + e.getMessage());
+        }
     }
 
     public void deleteCourseById(Long id) {

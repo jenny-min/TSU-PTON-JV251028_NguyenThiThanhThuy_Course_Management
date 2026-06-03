@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Course Management</title>
@@ -28,6 +28,11 @@
 
         header h1{
             text-align:center;
+        }
+
+        header a{
+            color: white;
+            text-decoration: none;
         }
 
         /* CONTENT */
@@ -131,6 +136,24 @@
             opacity:0.8;
         }
 
+        .pagination{
+            margin-top:20px;
+            text-align:center;
+        }
+
+        .pagination a{
+            padding:8px 12px;
+            border:1px solid #ccc;
+            margin:0 5px;
+            text-decoration:none;
+            border-radius:5px;
+        }
+
+        .pagination a:hover{
+            background:#2563eb;
+            color:white;
+        }
+
         /* FOOTER */
 
         footer{
@@ -197,7 +220,7 @@
                 <td th:text="${course.id}"></td>
 
                 <td>
-                    <img th:src="${course.thumbnail}">
+                    <img th:src="@{'/uploads/' + ${course.thumbnail}}">
                 </td>
 
                 <td th:text="${course.courseName}"></td>
@@ -219,13 +242,27 @@
             </tbody>
         </table>
 
+        <!--pagination-->
         <div class="pagination">
-            <button>1</button>
-            <button>1</button>
-            <button>1</button>
-        </div>
-    </div>
+            <a th:if="${coursePage.hasPrevious()}"
+               th:href="@{/courses(page=${coursePage.number - 1})}">
+                Previous
+            </a>
 
+            <span th:each="i : ${#numbers.sequence(1, coursePage.totalPages)}">
+                <a th:href="@{/courses(page=${i - 1})}"
+                   th:text="${i}">
+                </a>
+            </span>
+
+            <a th:if="${coursePage.hasNext()}"
+               th:href="@{/courses(page=${coursePage.number + 1})}">
+                Next
+            </a>
+
+        </div>
+
+    </div>
     <!-- FOOTER -->
     <footer>
         © 2026 Course Management System

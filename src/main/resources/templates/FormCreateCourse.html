@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Thêm khóa học</title>
@@ -121,7 +121,8 @@
 
     <form th:action="@{/courses}"
           th:object="${course}"
-          method="post">
+          method="post"
+          enctype="multipart/form-data">
 
         <!-- Tên khóa học -->
         <div class="form-group">
@@ -168,7 +169,8 @@
         <!-- Ảnh đại diện -->
         <div class="form-group">
             <label>Ảnh đại diện (URL)</label>
-            <input type="text" th:field="*{thumbnail}" placeholder="Nhập URL ảnh">
+            <input type="file" name="file" accept=".jpg,.jpeg,.png" placeholder="Nhập URL ảnh">
+            <div class="error" th:if="${fileError}" th:text="${fileError}"></div>
         </div>
 
         <!-- Nút -->

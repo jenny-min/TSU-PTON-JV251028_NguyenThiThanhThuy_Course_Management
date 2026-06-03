@@ -4,10 +4,12 @@ import com.example.coursemanagement.models.Course;
 import com.example.coursemanagement.services.CourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -19,8 +21,13 @@ public class CourseController {
 
     //Đọc
     @GetMapping
-    public String courseManagementPage(Model model) {
-        model.addAttribute("courses", cs.getAllCourse());
+    public String courseManagementPage(
+            @RequestParam(defaultValue = "0") int page,
+            Model model) {
+        Page<Course> coursePage = cs.getAllCourse(page);
+
+        model.addAttribute("coursePage", coursePage);
+        model.addAttribute("courses", coursePage.getContent());
         return "CourseManagement";
     }
 
@@ -35,14 +42,25 @@ public class CourseController {
     public String createCourse(
             @Valid
             @ModelAttribute("course") Course course,
-            BindingResult result) {
+            BindingResult result,
+            @RequestParam("file")MultipartFile file,
+            Model model) {
+
         if (result.hasErrors()) {
             return "FormCreateCourse";
         }
 
-        cs.addCourse(course);
+        try {
+            cs.addCourse(course, file);
 
-        return "redirect:/courses";
+            return "redirect:/courses";
+
+        } catch (RuntimeException ex) {
+
+            model.addAttribute("fileError", ex.getMessage());
+
+            return "FormCreateCourse";
+        }
     }
 
     //Xóa
@@ -68,8 +86,25 @@ public class CourseController {
     }
 
     @PostMapping("/save")
-    public String saveUpdate(@ModelAttribute("updateCourse") Course course) {
-        cs.addCourse(course);
-        return "redirect:/courses";
+    public String saveUpdate(
+            @Valid
+            @ModelAttribute("updateCourse") Course course,
+            BindingResult result,
+            @RequestParam("file") MultipartFile file,
+            Model model) {
+        if (result.hasErrors()) {
+            return "FormUpdateCourse";
+        }
+        try {
+            cs.addCourse(course, file);
+
+            return "redirect:/courses";
+
+        } catch (RuntimeException ex) {
+
+            model.addAttribute("fileError", ex.getMessage());
+
+            return "FormUpdateCourse";
+        }
     }
 }
