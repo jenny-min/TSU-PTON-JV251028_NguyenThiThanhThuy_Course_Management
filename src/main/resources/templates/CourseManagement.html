@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Course Management</title>
     <style>
-
         *{
             margin:0;
             padding:0;
@@ -29,30 +28,6 @@
 
         header h1{
             text-align:center;
-        }
-
-        /* NAVBAR */
-
-        nav{
-            background:#2563eb;
-            padding:10px;
-        }
-
-        nav ul{
-            display:flex;
-            list-style:none;
-            justify-content:center;
-            gap:30px;
-        }
-
-        nav a{
-            color:white;
-            text-decoration:none;
-            font-weight:bold;
-        }
-
-        nav a:hover{
-            text-decoration:underline;
         }
 
         /* CONTENT */
@@ -81,6 +56,31 @@
 
         .add-btn:hover{
             opacity:0.9;
+        }
+
+        .search-box{
+            margin-bottom:20px;
+        }
+
+        .search-box form{
+            display:flex;
+            gap:10px;
+        }
+
+        .search-box input{
+            width:300px;
+            padding:10px;
+            border:1px solid #ccc;
+            border-radius:5px;
+        }
+
+        .search-box button{
+            background:#2563eb;
+            color:white;
+            border:none;
+            padding:10px 20px;
+            border-radius:5px;
+            cursor:pointer;
         }
 
         table{
@@ -148,7 +148,7 @@
     <header class="top-action">
         <h1>COURSE MANAGEMENT</h1>
 
-        <a>
+        <a href="#">
             Trang chủ
         </a>
     </header>
@@ -158,50 +158,77 @@
         <div class="top-action">
             <h2>Danh sách khóa học</h2>
 
-            <button class="add-btn">
-                + Thêm khóa học
-            </button>
+            <a th:href="@{/courses/create}">
+                <button class="add-btn">
+                    + Thêm khóa học
+                </button>
+            </a>
+        </div>
+
+        <div class="search-box">
+            <form th:action="@{/courses}" method="get">
+                <input type="text"
+                        name="keyword"
+                        th:value="${keyword}"
+                        placeholder="Tìm kiếm khóa học...">
+
+                <button type="submit">
+                    Tìm kiếm
+                </button>
+
+            </form>
+
         </div>
 
         <table>
             <thead>
-            <tr>
-                <th>ID</th>
-                <th>Ảnh đại diện</th>
-                <th>Tên khóa học</th>
-                <th>Giảng viên</th>
-                <th>Thời lượng</th>
-                <th>Thao tác</th>
-            </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Ảnh đại diện</th>
+                    <th>Tên khóa học</th>
+                    <th>Giảng viên</th>
+                    <th>Thời lượng</th>
+                    <th>Thao tác</th>
+                </tr>
             </thead>
 
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>
-                    <img src="https://via.placeholder.com/80x50"
-                         alt="thumbnail">
-                </td>
-                <td>Lập trình Java</td>
-                <td>Nguyễn Văn A</td>
-                <td>60 giờ</td>
-                <td>
-                    <button class="edit-btn">
-                        Sửa
-                    </button>
+            <tr th:each="course : ${courses}">
+                <td th:text="${course.id}"></td>
 
-                    <button class="delete-btn">
-                        Xóa
-                    </button>
+                <td>
+                    <img th:src="${course.thumbnail}">
+                </td>
+
+                <td th:text="${course.courseName}"></td>
+
+                <td th:text="${course.instructor}"></td>
+
+                <td th:text="${course.duration}"></td>
+
+                <td>
+                    <a>
+                        <button class="edit-btn">Sửa</button>
+                    </a>
+
+                    <a th:href="'/courses/delete/' + ${course.id}">
+                        <button class="delete-btn">Xóa</button>
+                    </a>
                 </td>
             </tr>
             </tbody>
         </table>
+
+        <div class="pagination">
+            <button>1</button>
+            <button>1</button>
+            <button>1</button>
+        </div>
     </div>
 
     <!-- FOOTER -->
     <footer>
-        © 2026 Course Management System | Spring Boot + Thymeleaf
+        © 2026 Course Management System
     </footer>
 </body>
 </html>
