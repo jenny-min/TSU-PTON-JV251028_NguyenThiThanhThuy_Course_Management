@@ -189,18 +189,20 @@
         </div>
 
         <div class="search-box">
-            <form th:action="@{/courses}" method="get">
+
+            <form th:action="@{/courses/search}"
+                  method="get">
+
                 <input type="text"
-                        name="keyword"
-                        th:value="${keyword}"
-                        placeholder="Tìm kiếm khóa học...">
+                       name="keyword"
+                       th:value="${keyword}"
+                       placeholder="Tìm theo tên khóa học hoặc giảng viên">
 
                 <button type="submit">
                     Tìm kiếm
                 </button>
 
             </form>
-
         </div>
 
         <table>
@@ -229,15 +231,15 @@
 
                 <td th:text="${course.duration}"></td>
 
-                <td>
-                    <a th:href="'/courses/update/' + ${course.id}">
-                        <button class="edit-btn">Sửa</button>
-                    </a>
+                    <td>
+                        <a th:href="'/courses/update/' + ${course.id}">
+                            <button class="edit-btn">Sửa</button>
+                        </a>
 
-                    <a th:href="'/courses/delete/' + ${course.id}">
-                        <button class="delete-btn">Xóa</button>
-                    </a>
-                </td>
+                        <a th:href="'/courses/delete/' + ${course.id}">
+                            <button class="delete-btn">Xóa</button>
+                        </a>
+                    </td>
             </tr>
             </tbody>
         </table>
@@ -246,7 +248,7 @@
         <div class="pagination">
             <a th:if="${coursePage.hasPrevious()}"
                th:href="@{/courses(page=${coursePage.number - 1})}">
-                Previous
+                <<
             </a>
 
             <span th:each="i : ${#numbers.sequence(1, coursePage.totalPages)}">
@@ -257,7 +259,7 @@
 
             <a th:if="${coursePage.hasNext()}"
                th:href="@{/courses(page=${coursePage.number + 1})}">
-                Next
+                >>
             </a>
 
         </div>

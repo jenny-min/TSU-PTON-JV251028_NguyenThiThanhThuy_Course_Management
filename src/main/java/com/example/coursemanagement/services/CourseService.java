@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,6 +28,13 @@ public class CourseService {
     public Page<Course> getAllCourse(int page) {
         Pageable pageable = PageRequest.of(page, 2);
         return cr.findAll(pageable);
+    }
+
+    public List<Course> searchCourse(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return cr.findAll();
+        }
+        return cr.searchCourse(keyword);
     }
 
     public Course addCourse(Course course, MultipartFile file) {

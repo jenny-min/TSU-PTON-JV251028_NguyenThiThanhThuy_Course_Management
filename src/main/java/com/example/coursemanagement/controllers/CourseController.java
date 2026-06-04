@@ -31,6 +31,20 @@ public class CourseController {
         return "CourseManagement";
     }
 
+    //Tìm kiếm
+    @GetMapping("/search")
+    public String searchCourse(
+            @RequestParam(required = false)
+            String keyword,
+            Model model) {
+
+        model.addAttribute("courses", cs.searchCourse(keyword));
+
+        model.addAttribute("keyword", keyword);
+
+        return "CourseManagement";
+    }
+
     //Thêm
     @GetMapping("/create")
     public String createCourse(Model model) {
