@@ -88,6 +88,18 @@
             cursor:pointer;
         }
 
+        .reset-btn{
+            text-decoration:none;
+            padding:10px 20px;
+            background:#6b7280;
+            color:white;
+            border-radius:6px;
+        }
+
+        .reset-btn:hover{
+            background:#4b5563;
+        }
+
         table{
             width:100%;
             border-collapse:collapse;
@@ -201,6 +213,10 @@
                 <button type="submit">
                     Tìm kiếm
                 </button>
+
+                <a th:href="@{/courses}" class="reset-btn">
+                    Tất cả
+                </a>
 
             </form>
         </div>
