@@ -30,11 +30,14 @@ public class CourseService {
         return cr.findAll(pageable);
     }
 
-    public List<Course> searchCourse(String keyword) {
+    public Page<Course> searchCourse(String keyword, int page) {
+        Pageable pageable = PageRequest.of(page, 2);
+
         if (keyword == null || keyword.trim().isEmpty()) {
-            return cr.findAll();
+            return cr.findAll(pageable);
         }
-        return cr.searchCourse(keyword);
+
+        return cr.searchCourse(keyword, pageable);
     }
 
     public Course addCourse(Course course, MultipartFile file) {

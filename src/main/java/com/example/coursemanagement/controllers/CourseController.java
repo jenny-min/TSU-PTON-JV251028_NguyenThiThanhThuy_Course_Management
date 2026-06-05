@@ -34,12 +34,15 @@ public class CourseController {
     //Tìm kiếm
     @GetMapping("/search")
     public String searchCourse(
-            @RequestParam(required = false)
-            String keyword,
+            @RequestParam(required = false) String keyword,
+            @RequestParam(defaultValue = "0") int page,
             Model model) {
 
-        model.addAttribute("courses", cs.searchCourse(keyword));
+        Page<Course> coursePage =
+                cs.searchCourse(keyword, page);
 
+        model.addAttribute("coursePage", coursePage);
+        model.addAttribute("courses", coursePage.getContent());
         model.addAttribute("keyword", keyword);
 
         return "CourseManagement";

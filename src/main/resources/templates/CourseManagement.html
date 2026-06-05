@@ -262,24 +262,24 @@
 
         <!--pagination-->
         <div class="pagination">
+
             <a th:if="${coursePage.hasPrevious()}"
                th:href="@{/courses(page=${coursePage.number - 1})}">
-                <<
+                Previous
             </a>
 
             <span th:each="i : ${#numbers.sequence(1, coursePage.totalPages)}">
-                <a th:href="@{/courses(page=${i - 1})}"
-                   th:text="${i}">
-                </a>
-            </span>
+        <a th:text="${i}"
+           th:href="@{/courses(page=${i - 1})}">
+        </a>
+    </span>
 
             <a th:if="${coursePage.hasNext()}"
                th:href="@{/courses(page=${coursePage.number + 1})}">
-                >>
+                Next
             </a>
 
         </div>
-
     </div>
     <!-- FOOTER -->
     <footer>
