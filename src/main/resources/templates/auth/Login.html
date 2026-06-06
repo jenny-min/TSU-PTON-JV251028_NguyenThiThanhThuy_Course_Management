@@ -100,13 +100,11 @@
   <div class="login-container">
     <h2>Đăng nhập</h2>
 
-    <div class="error" th:if="${error}">
-      Sai tài khoản hoặc mật khẩu
-    </div>
+    <div class="error" th:if="${error}">Sai tài khoản hoặc mật khẩu</div>
 
-    <div class="success" th:if="${logout}">
-      Đăng xuất thành công
-    </div>
+    <div class="success" th:if="${logout}">Đăng xuất thành công</div>
+
+    <div class="success" th:if="${success}" th:text="${success}"></div>
 
     <form th:action="@{/login_submit}" method="post">
       <div class="form-group">
