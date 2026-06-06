@@ -25,4 +25,10 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @NotBlank(message = "Họ và tên không được để trống")
+    private String fullName;
+
+    @NotBlank(message = "Email không được để trống")
+    private String email;
 }

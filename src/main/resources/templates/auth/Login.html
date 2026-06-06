@@ -110,13 +110,13 @@
 
     <form th:action="@{/login_submit}" method="post">
       <div class="form-group">
-        <label>Tên tài khoản</label>
-        <input type="text" name="username" placeholder="Nhập tên đăng nhập">
+        <label for="username">Tên tài khoản</label>
+        <input type="text" id="username" name="username" placeholder="Nhập tên đăng nhập" required title="Tên đăng nhập">
       </div>
 
       <div class="form-group">
-        <label>Mật khẩu</label>
-        <input type="password" name="password" placeholder="Nhập mật khẩu">
+        <label for="password">Mật khẩu</label>
+        <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" placeholder="Nhập mật khẩu" required title="Mật khẩu">
       </div>
 
       <button type="submit" class="btn-login">

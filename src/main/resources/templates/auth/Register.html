@@ -94,31 +94,33 @@
 
     <h2>Đăng ký tài khoản</h2>
 
-    <form th:action="@{/register}" method="post">
+    <div class="error" th:if="${error}" th:text="${error}"></div>
+
+    <form th:action="@{/auth/register}" method="post">
 
         <div class="form-group">
-            <label>Họ và tên</label>
-            <input type="text" name="fullName" required>
+            <label for="fullName">Họ và tên</label>
+            <input type="text" id="fullName" name="fullName" placeholder="Nhập họ và tên" required title="Họ và tên">
         </div>
 
         <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Nhập email" required title="Email">
         </div>
 
         <div class="form-group">
-            <label>Tên đăng nhập</label>
-            <input type="text" name="username" required>
+            <label for="username">Tên đăng nhập</label>
+            <input type="text" id="username" name="username" placeholder="Nhập tên người dùng" required title="Tên người dùng">
         </div>
 
         <div class="form-group">
-            <label>Mật khẩu</label>
-            <input type="password" name="password" required>
+            <label for="password">Mật khẩu</label>
+            <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" required title="Mật khẩu">
         </div>
 
         <div class="form-group">
-            <label>Xác nhận mật khẩu</label>
-            <input type="password" name="confirmPassword" required>
+            <label for="confirmPassword">Xác nhận mật khẩu</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Nhập xác nhận mật khẩu" required title="Xác nhận mật khẩu">
         </div>
 
         <button type="submit" class="btn-register">
