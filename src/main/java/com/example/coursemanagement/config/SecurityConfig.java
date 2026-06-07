@@ -40,15 +40,17 @@ public class SecurityConfig {
                         .requestMatchers("/", "/auth/**").permitAll()
                         .requestMatchers(//chỉ admin
                                 "/courses/create", //đăng ký
-                                "courses/delete/**",//xóa
-                                "courses/update/**",//cập nhật
-                                "courses/save"//lưu
+                                "/courses/delete/**",//xóa
+                                "/courses/update/**",//cập nhật
+                                "/courses/save"//lưu
                         ).hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form->form
                         .loginPage("/auth/login")
                         .loginProcessingUrl("/login_submit")
-                        .defaultSuccessUrl("/courses", true)
+                        .successHandler((request, response, authentication) -> {
+                            response.sendRedirect("/courses");
+                        })
                         .permitAll()
                 )
                 .httpBasic(Customizer.withDefaults());

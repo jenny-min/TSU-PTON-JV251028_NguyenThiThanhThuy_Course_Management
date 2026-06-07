@@ -1,8 +1,5 @@
 package com.example.coursemanagement.controllers;
 
-import com.example.coursemanagement.enums.Role;
-import com.example.coursemanagement.models.User;
-import com.example.coursemanagement.repositories.UserRepository;
 import com.example.coursemanagement.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
