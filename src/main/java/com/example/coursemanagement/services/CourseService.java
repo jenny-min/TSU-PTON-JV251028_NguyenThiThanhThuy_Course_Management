@@ -25,12 +25,12 @@ public class CourseService {
     private static final String UPLOAD_DIR = "uploads";
 
     public Page<Course> getAllCourse(int page) {
-        Pageable pageable = PageRequest.of(page, 2);
+        Pageable pageable = PageRequest.of(page, 10);
         return cr.findAll(pageable);
     }
 
     public Page<Course> searchCourse(String keyword, int page) {
-        Pageable pageable = PageRequest.of(page, 2);
+        Pageable pageable = PageRequest.of(page, 5);
 
         if (keyword == null || keyword.trim().isEmpty()) {
             return cr.findAll(pageable);
