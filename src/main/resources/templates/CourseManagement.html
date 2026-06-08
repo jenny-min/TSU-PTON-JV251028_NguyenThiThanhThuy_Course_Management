@@ -200,9 +200,8 @@
                 </button>
             </a>
         </div>
-
+        <!--    Tìm kiếm    -->
         <div class="search-box">
-
             <form th:action="@{/courses/search}"
                   method="get">
 
@@ -218,7 +217,6 @@
                 <a th:href="@{/courses}" class="reset-btn">
                     Tất cả
                 </a>
-
             </form>
         </div>
 
@@ -235,19 +233,18 @@
             </thead>
 
             <tbody>
-            <tr th:each="course : ${courses}">
-                <td th:text="${course.id}"></td>
+                <tr th:each="course : ${courses}">
+                    <td th:text="${course.id}"></td>
 
-                <td>
-                    <img th:src="@{'/uploads/' + ${course.thumbnail}}">
-                </td>
+                    <td>
+                        <img th:src="@{'/uploads/' + ${course.thumbnail}}">
+                    </td>
 
-                <td th:text="${course.courseName}"></td>
+                    <td th:text="${course.courseName}"></td>
 
-                <td th:text="${course.instructor}"></td>
+                    <td th:text="${course.instructor}"></td>
 
-                <td th:text="${course.duration}"></td>
-
+                    <td th:text="${course.duration}"></td>
                     <td>
                         <a th:href="'/courses/update/' + ${course.id}">
                             <button class="edit-btn">Sửa</button>
@@ -257,7 +254,7 @@
                             <button class="delete-btn">Xóa</button>
                         </a>
                     </td>
-            </tr>
+                </tr>
             </tbody>
         </table>
 
@@ -270,16 +267,15 @@
             </a>
 
             <span th:each="i : ${#numbers.sequence(1, coursePage.totalPages)}">
-        <a th:text="${i}"
-           th:href="@{/courses(page=${i - 1})}">
-        </a>
-    </span>
+                <a th:text="${i}"
+                   th:href="@{/courses(page=${i - 1})}">
+                </a>
+            </span>
 
             <a th:if="${coursePage.hasNext()}"
                th:href="@{/courses(page=${coursePage.number + 1})}">
                 Next
             </a>
-
         </div>
     </div>
     <!-- FOOTER -->

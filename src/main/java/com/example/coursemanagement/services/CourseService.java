@@ -30,7 +30,7 @@ public class CourseService {
     }
 
     public Page<Course> searchCourse(String keyword, int page) {
-        Pageable pageable = PageRequest.of(page, 5);
+        Pageable pageable = PageRequest.of(page, 10);
 
         if (keyword == null || keyword.trim().isEmpty()) {
             return cr.findAll(pageable);

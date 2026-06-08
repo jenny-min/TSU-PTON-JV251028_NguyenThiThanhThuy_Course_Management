@@ -19,7 +19,7 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Tên khóa học không được để trống")
     @Size(min = 5, max = 100, message = "Độ dài từ 5 đến 100 ký tự")
     private String courseName;
 
