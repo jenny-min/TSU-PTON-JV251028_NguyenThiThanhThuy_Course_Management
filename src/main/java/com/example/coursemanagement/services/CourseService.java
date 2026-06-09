@@ -85,6 +85,20 @@ public class CourseService {
     }
 
     public void deleteCourseById(Long id) {
+        Course course = cr.findById(id).orElseThrow(() ->
+                new RuntimeException("Không tìm thấy khóa học"));
+
+        //Xóa khóa học thì xóa luôn ảnh - nếu có
+        if (course.getThumbnail() != null
+                && !course.getThumbnail().isBlank()) {
+            Path thumnailPath = Paths.get(UPLOAD_DIR, course.getThumbnail());
+
+            try {
+                Files.deleteIfExists(thumnailPath);
+            } catch (IOException e) {
+                throw new RuntimeException("Không thể xóa ảnh " + course.getThumbnail());
+            }
+        }
         cr.deleteById(id);
     }
 
