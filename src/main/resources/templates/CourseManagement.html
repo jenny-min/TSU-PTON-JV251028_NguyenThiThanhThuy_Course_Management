@@ -267,7 +267,7 @@
 
             <a th:if="${coursePage.hasPrevious()}"
                th:href="@{/courses(page=${coursePage.number - 1})}">
-                Previous
+                Trước
             </a>
 
             <span th:each="i : ${#numbers.sequence(1, coursePage.totalPages)}">
@@ -278,7 +278,7 @@
 
             <a th:if="${coursePage.hasNext()}"
                th:href="@{/courses(page=${coursePage.number + 1})}">
-                Next
+                Sau
             </a>
         </div>
     </div>
