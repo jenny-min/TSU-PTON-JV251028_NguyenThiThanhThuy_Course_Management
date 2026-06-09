@@ -84,12 +84,14 @@ public class CourseController {
     @GetMapping("/delete/{id}")
     public String confirmDelete(@PathVariable Long id, Model model) {
         Course c = cs.getCourseById(id).orElseThrow(() -> new RuntimeException("Không tìm thấy khóa học"));
+        System.out.println("đã lấy được id " + id);
         model.addAttribute("course", c);
         return "FormConfirmDelete";
     }
 
-    @PostMapping("/delete")
-    public String deleteCourse(@RequestParam Long id) {
+    @PostMapping("/delete/{id}")
+    public String deleteCourse(@PathVariable Long id) {
+        System.out.println("Đã xóa " + id);
         cs.deleteCourseById(id);
         return "redirect:/courses";
     }

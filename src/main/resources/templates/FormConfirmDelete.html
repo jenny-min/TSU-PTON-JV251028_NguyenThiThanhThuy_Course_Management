@@ -61,7 +61,7 @@
             Bạn có chắc muốn xóa khóa học:
             <b th:text="${course.courseName}"></b> ?
         </p>
-        <form th:action="@{/courses/delete}" method="post">
+        <form th:action="'/courses/delete/' + ${course.id}" method="post">
             <input type="hidden"
                    name="id"
                    th:value="${course.id}">
