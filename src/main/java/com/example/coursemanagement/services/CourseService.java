@@ -55,6 +55,12 @@ public class CourseService {
                     throw new RuntimeException("Chỉ cho phép file jpg, jpeg, png");
                 }
 
+                //Xóa ảnh trước khi cập nhật ảnh mới
+                if (course.getThumbnail() != null) {
+                    Path oldThumbnail = Paths.get(UPLOAD_DIR, course.getThumbnail());
+                    Files.deleteIfExists(oldThumbnail);
+                }
+
                 // Tạo thư mục uploads nếu chưa tồn tại
                 Path uploadPath = Paths.get(UPLOAD_DIR);
 
